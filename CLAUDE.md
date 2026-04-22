@@ -30,11 +30,14 @@ A map drawing app — users pick tiles from the tileset panel and paint them ont
 
 **Tileset rendering** — sprites are rendered via CSS `background-image` + `background-position` to crop a specific tile from a spritesheet PNG. Tiles are 16×16px; all tilesets live in `public/Tilesets/`. Always use `imageRendering: pixelated` on upscaled tiles. cols/rows are derived as `Math.floor(width / 16)`.
 
+**Collision layer** — a separate `boolean[][]` (16×16) tracking walkability: `false` = land, `true` = wall. Toggled via a "Collision" button; when active, left-click toggles a cell's state and right-click is a no-op (tile interactions are fully disabled). Rendered as a semi-transparent overlay (red for wall, faint green for land). Saved to `map-collision.json`.
+
 **APIs**
 - `GET /api/tilesets` — scans `public/Tilesets/` recursively, reads PNG dimensions from file headers (no extra deps), returns `{ name, path, width, height }[]`.
-- `POST /api/map` — accepts `{ layers: [cells, cells, cells] }` and writes `map-floor.json`, `map-low.json`, `map-high.json` to the project root. Each cell is `null | { tilesetPath, col, row }`.
+- `GET /api/map` — returns `{ layers: [cells, cells, cells], collision: boolean[][] }`, reading from the four JSON files (empty grids if files don't exist yet).
+- `POST /api/map` — accepts `{ layers: [cells, cells, cells], collision: boolean[][] }` and writes `map-floor.json`, `map-low.json`, `map-high.json`, `map-collision.json`. Each tile cell is `null | { tilesetPath, col, row }`.
 
-**Map grid** — `MapGrid` renders a 16×16 grid of 32px cells (`CELL_SIZE = 32`). Each cell is `position: relative` with up to three absolutely-positioned tile divs stacked floor→low→high.
+**Map grid** — `MapGrid` renders a 16×16 grid of 32px cells (`CELL_SIZE = 32`). Each cell is `position: relative` with up to three absolutely-positioned tile divs stacked floor→low→high, plus an optional collision overlay div. "Grid" toggle button shows/hides cell borders. Both toggles use a highlighted button style when active.
 
 **TilesetBrowser** — the tileset selector is a custom scrollable list (not a `<select>`), required because native `<option>` elements don't fire mouse events reliably. Hovering an item shows the full tileset PNG at 1:1 pixel ratio in a `position: fixed` floating panel to the left of the list (`pointerEvents: none`, viewport-clamped). Clicking an item sets it as the active tileset.
 
