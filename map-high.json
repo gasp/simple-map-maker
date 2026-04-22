@@ -1,0 +1,424 @@
+{
+  "cells": [
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 2,
+        "row": 8
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 3,
+        "row": 8
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 7,
+        "row": 3
+      },
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 13,
+        "row": 2
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 2,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 3,
+        "row": 0
+      },
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 12,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 13,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 14,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 15,
+        "row": 0
+      }
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 6,
+        "row": 4
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 7,
+        "row": 4
+      },
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 4,
+        "row": 4
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 5,
+        "row": 4
+      },
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 4,
+        "row": 3
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 5,
+        "row": 3
+      },
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 8,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 9,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 10,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 11,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 3,
+        "row": 17
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 4,
+        "row": 17
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 4,
+        "row": 3
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 19,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 20,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 21,
+        "row": 0
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 22,
+        "row": 0
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 29,
+        "row": 11
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 30,
+        "row": 11
+      }
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 13,
+        "row": 8
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 14,
+        "row": 8
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  ]
+}
