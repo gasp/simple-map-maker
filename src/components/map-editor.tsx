@@ -54,6 +54,22 @@ export function MapEditor() {
           }}
         >
           <h1 style={{ margin: 0 }}>Map</h1>
+          {selectedTile && (
+            <div
+              title={`${selectedTile.tilesetPath} (${selectedTile.col}, ${selectedTile.row})`}
+              style={{
+                width: 32,
+                height: 32,
+                backgroundImage: `url(${selectedTile.tilesetPath})`,
+                backgroundPosition: `-${selectedTile.col * 32}px -${selectedTile.row * 32}px`,
+                backgroundSize: `${selectedTile.tilesetCols * 32}px ${selectedTile.tilesetRows * 32}px`,
+                backgroundRepeat: 'no-repeat',
+                imageRendering: 'pixelated',
+                border: '1px solid #444',
+                flexShrink: 0,
+              }}
+            />
+          )}
           <button onClick={handleSave} disabled={saving}>
             {saving ? 'Saving…' : 'Save'}
           </button>

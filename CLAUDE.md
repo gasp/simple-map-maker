@@ -20,11 +20,19 @@ A map drawing app — users pick tiles from the tileset panel and paint them ont
 
 ## Architecture
 
-Two-panel layout: a server-rendered map canvas (`src/app/page.tsx`) and a client-side tileset picker sidebar (`src/components/tileset-browser.tsx`).
+`page.tsx` renders `<MapEditor />`, a client component that owns all shared state and provides the two-panel layout.
 
-**Tileset rendering** — sprites are rendered via CSS `background-image` + `background-position` to crop a specific tile from a spritesheet PNG. Tiles are 16×16px; all tilesets live in `public/Tilesets/`. Use `imageRendering: pixelated` on any upscaled tile.
+**State flow** — `MapEditor` holds `selectedTile: TileRef | null` and `cells: CellData[][]` (16×16). `TilesetBrowser` calls `onTileSelect` when a sprite is clicked; `MapGrid` calls `onCellClick(row, col)` to stamp the selected tile into the grid.
 
-**Tileset API** — `GET /api/tilesets` scans `public/Tilesets/` recursively and returns `{ name, path, width, height }[]`. Dimensions are read directly from PNG file headers (no extra dependencies). `TilesetBrowser` fetches this on mount and renders a `<select>` to switch between tilesets. `TilesSet` accepts `{ src, cols, rows }` props; cols/rows are derived as `Math.floor(width / 16)` and `Math.floor(height / 16)`.
+**Shared types** live in `src/types/map.ts`: `TileRef = { tilesetPath, tilesetCols, tilesetRows, col, row }` and `CellData = TileRef | null`.
+
+**Tileset rendering** — sprites are rendered via CSS `background-image` + `background-position` to crop a specific tile from a spritesheet PNG. Tiles are 16×16px; all tilesets live in `public/Tilesets/`. Always use `imageRendering: pixelated` on upscaled tiles. cols/rows are derived as `Math.floor(width / 16)`.
+
+**APIs**
+- `GET /api/tilesets` — scans `public/Tilesets/` recursively, reads PNG dimensions from file headers (no extra deps), returns `{ name, path, width, height }[]`.
+- `POST /api/map` — saves `{ cells: (null | { tilesetPath, col, row })[][] }` to `map.json` at the project root.
+
+**Map grid** — `MapGrid` renders a 16×16 grid of 32px cells (`CELL_SIZE = 32`). Each cell uses the same background-position technique to render its tile.
 
 **React Compiler** is enabled (`next.config.ts` + `babel-plugin-react-compiler`). Avoid manual `useMemo`/`useCallback` — the compiler handles memoization.
 

@@ -19,10 +19,17 @@ type Props = {
   onTileSelect?: (tile: TileRef) => void
 }
 
+type Preview = {
+  tileset: Tileset
+  top: number
+  right: number
+}
+
 export function TilesetBrowser({ onTileSelect }: Props) {
   const [tilesets, setTilesets] = useState<Tileset[]>([])
   const [activeTileset, setActiveTileset] = useState<Tileset | null>(null)
   const [selectedSprite, setSelectedSprite] = useState<Sprite | null>(null)
+  const [preview, setPreview] = useState<Preview | null>(null)
 
   useEffect(() => {
     fetch('/api/tilesets')
@@ -47,24 +54,45 @@ export function TilesetBrowser({ onTileSelect }: Props) {
     })
   }
 
-  function handleTilesetChange(path: string) {
-    setActiveTileset(tilesets.find((t) => t.path === path) ?? null)
+  function handleTilesetClick(t: Tileset) {
+    setActiveTileset(t)
     setSelectedSprite(null)
+  }
+
+  function handleMouseEnter(t: Tileset, e: React.MouseEvent) {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+    const top = Math.min(rect.top, window.innerHeight - t.height - 8)
+    setPreview({ tileset: t, top: Math.max(8, top), right: window.innerWidth - rect.left })
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px' }}>
-      <select
-        value={activeTileset?.path ?? ''}
-        onChange={(e) => handleTilesetChange(e.target.value)}
-        style={{ padding: '4px' }}
+      <div
+        style={{
+          border: '1px solid #444',
+          maxHeight: '220px',
+          overflowY: 'auto',
+          fontSize: '12px',
+        }}
       >
         {tilesets.map((t) => (
-          <option key={t.path} value={t.path}>
+          <div
+            key={t.path}
+            onClick={() => handleTilesetClick(t)}
+            onMouseEnter={(e) => handleMouseEnter(t, e)}
+            onMouseLeave={() => setPreview(null)}
+            style={{
+              padding: '4px 8px',
+              cursor: 'pointer',
+              backgroundColor: t.path === activeTileset?.path ? '#2a4a6a' : 'transparent',
+              whiteSpace: 'nowrap',
+            }}
+          >
             {t.name}
-          </option>
+          </div>
         ))}
-      </select>
+      </div>
+
       {activeTileset && (
         <TilesSet
           src={activeTileset.path}
@@ -73,6 +101,28 @@ export function TilesetBrowser({ onTileSelect }: Props) {
           selectedSprite={selectedSprite}
           onSelect={handleSelect}
         />
+      )}
+
+      {preview && (
+        <div
+          style={{
+            position: 'fixed',
+            top: preview.top,
+            right: preview.right,
+            zIndex: 200,
+            border: '1px solid #555',
+            pointerEvents: 'none',
+            background: '#111',
+          }}
+        >
+          <img
+            src={preview.tileset.path}
+            width={preview.tileset.width}
+            height={preview.tileset.height}
+            style={{ display: 'block', imageRendering: 'pixelated' }}
+            alt={preview.tileset.name}
+          />
+        </div>
       )}
     </div>
   )
