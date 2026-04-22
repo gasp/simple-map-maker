@@ -541,8 +541,8 @@
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 21,
-        "row": 2
+        "col": 1,
+        "row": 3
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
@@ -648,14 +648,14 @@
         "row": 9
       },
       null,
+      null,
+      null,
+      null,
       {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "tilesetPath": "/Tilesets/TilesetFloor.png",
         "col": 0,
-        "row": 2
+        "row": 4
       },
-      null,
-      null,
-      null,
       null,
       {
         "tilesetPath": "/Tilesets/TilesetElement.png",
@@ -673,7 +673,11 @@
         "row": 4
       },
       null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetFloorDetail.png",
+        "col": 14,
+        "row": 0
+      },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
         "col": 8,
@@ -693,18 +697,10 @@
     [
       null,
       null,
-      {
-        "tilesetPath": "/Tilesets/TilesetFloorDetail.png",
-        "col": 14,
-        "row": 0
-      },
       null,
       null,
-      {
-        "tilesetPath": "/Tilesets/TilesetFloor.png",
-        "col": 0,
-        "row": 4
-      },
+      null,
+      null,
       null,
       null,
       null,
@@ -740,10 +736,26 @@
       null,
       null,
       null,
-      null,
-      null,
-      null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 0,
+        "row": 4
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 1,
+        "row": 4
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 9,
+        "row": 9
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 9,
+        "row": 9
+      },
       null,
       null,
       null,
@@ -757,6 +769,11 @@
     [
       null,
       null,
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 4,
+        "row": 8
+      },
       null,
       null,
       null,
@@ -767,9 +784,16 @@
       null,
       null,
       null,
-      null,
-      null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 6,
+        "row": 9
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 7,
+        "row": 9
+      },
       null
     ]
   ]
