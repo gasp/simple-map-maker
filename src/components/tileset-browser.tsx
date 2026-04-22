@@ -25,11 +25,16 @@ type Preview = {
   right: number
 }
 
+function addRecent(prev: Tileset[], tileset: Tileset): Tileset[] {
+  return [tileset, ...prev.filter((t) => t.path !== tileset.path)].slice(0, 3)
+}
+
 export function TilesetBrowser({ onTileSelect }: Props) {
   const [tilesets, setTilesets] = useState<Tileset[]>([])
   const [activeTileset, setActiveTileset] = useState<Tileset | null>(null)
   const [selectedSprite, setSelectedSprite] = useState<Sprite | null>(null)
   const [preview, setPreview] = useState<Preview | null>(null)
+  const [recent, setRecent] = useState<Tileset[]>([])
 
   useEffect(() => {
     fetch('/api/tilesets')
@@ -43,6 +48,7 @@ export function TilesetBrowser({ onTileSelect }: Props) {
   function handleSelect(sprite: Sprite) {
     setSelectedSprite(sprite)
     if (!activeTileset) return
+    setRecent((prev) => addRecent(prev, activeTileset))
     const cols = Math.floor(activeTileset.width / TILE_SIZE)
     const rows = Math.floor(activeTileset.height / TILE_SIZE)
     onTileSelect?.({
@@ -67,6 +73,32 @@ export function TilesetBrowser({ onTileSelect }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px' }}>
+
+      {recent.length > 0 && (
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {recent.map((t) => (
+            <div
+              key={t.path}
+              title={t.name}
+              onClick={() => handleTilesetClick(t)}
+              style={{
+                width: 100,
+                height: 100,
+                backgroundImage: `url(${t.path})`,
+                backgroundSize: `${t.width}px ${t.height}px`,
+                backgroundPosition: '0 0',
+                backgroundRepeat: 'no-repeat',
+                imageRendering: 'pixelated',
+                cursor: 'pointer',
+                border: t.path === activeTileset?.path ? '2px solid #4af' : '1px solid #444',
+                boxSizing: 'border-box',
+                flexShrink: 0,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       <div
         style={{
           border: '1px solid #444',

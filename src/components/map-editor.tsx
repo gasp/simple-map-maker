@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TilesetBrowser } from './tileset-browser'
 import { MapGrid } from './map-grid'
 import type { TileRef, CellData, LayerIndex } from '@/types/map'
@@ -22,7 +22,33 @@ export function MapEditor() {
   const [selectedTile, setSelectedTile] = useState<TileRef | null>(null)
   const [layers, setLayers] = useState<Layers>(emptyLayers)
   const [activeLayer, setActiveLayer] = useState<LayerIndex>(0)
+  const [showGrid, setShowGrid] = useState(true)
   const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/map').then((r) => r.json()),
+      fetch('/api/tilesets').then((r) => r.json()),
+    ]).then(([mapData, tilesets]) => {
+      const sizeMap = new Map<string, { cols: number; rows: number }>(
+        tilesets.map((t: { path: string; width: number; height: number }) => [
+          t.path,
+          { cols: Math.floor(t.width / 16), rows: Math.floor(t.height / 16) },
+        ])
+      )
+      const loaded = mapData.layers.map((grid: ({ tilesetPath: string; col: number; row: number } | null)[][]) =>
+        grid.map((row) =>
+          row.map((cell) => {
+            if (!cell) return null
+            const size = sizeMap.get(cell.tilesetPath)
+            if (!size) return null
+            return { ...cell, tilesetCols: size.cols, tilesetRows: size.rows }
+          })
+        )
+      ) as Layers
+      setLayers(loaded)
+    })
+  }, [])
 
   function handleCellClick(row: number, col: number) {
     if (!selectedTile) return
@@ -33,6 +59,18 @@ export function MapEditor() {
         prev[2].map((r) => [...r]),
       ]
       next[activeLayer][row][col] = selectedTile
+      return next
+    })
+  }
+
+  function handleCellRightClick(row: number, col: number) {
+    setLayers((prev) => {
+      const next: Layers = [
+        prev[0].map((r) => [...r]),
+        prev[1].map((r) => [...r]),
+        prev[2].map((r) => [...r]),
+      ]
+      next[activeLayer][row][col] = null
       return next
     })
   }
@@ -87,7 +125,8 @@ export function MapEditor() {
           </button>
         </div>
 
-        <div style={{ display: 'flex', marginBottom: '8px' }}>
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
+          <div style={{ display: 'flex' }}>
           {LAYER_NAMES.map((name, i) => (
             <button
               key={i}
@@ -104,9 +143,22 @@ export function MapEditor() {
               {name}
             </button>
           ))}
+          </div>
+          <button
+            onClick={() => setShowGrid((v) => !v)}
+            style={{
+              padding: '4px 10px',
+              cursor: 'pointer',
+              color: 'inherit',
+              backgroundColor: showGrid ? '#2a4a6a' : 'transparent',
+              border: '1px solid #444',
+            }}
+          >
+            Grid
+          </button>
         </div>
 
-        <MapGrid layers={layers} onCellClick={handleCellClick} />
+        <MapGrid layers={layers} showGrid={showGrid} onCellClick={handleCellClick} onCellRightClick={handleCellRightClick} />
       </main>
       <aside style={{ borderLeft: '1px solid #333', overflow: 'auto', flexShrink: 0 }}>
         <TilesetBrowser onTileSelect={setSelectedTile} />

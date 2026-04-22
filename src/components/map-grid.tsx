@@ -7,25 +7,32 @@ const CELL_SIZE = 32
 
 type Props = {
   layers: [CellData[][], CellData[][], CellData[][]]
+  showGrid: boolean
   onCellClick: (row: number, col: number) => void
+  onCellRightClick: (row: number, col: number) => void
 }
 
 function Cell({
   layerData,
+  showGrid,
   onClick,
+  onRightClick,
 }: {
   layerData: CellData[]
+  showGrid: boolean
   onClick: () => void
+  onRightClick: () => void
 }) {
   return (
     <div
       onClick={onClick}
+      onContextMenu={(e) => { e.preventDefault(); onRightClick() }}
       style={{
         position: 'relative',
         width: CELL_SIZE,
         height: CELL_SIZE,
         boxSizing: 'border-box',
-        border: '1px solid #2a2a2a',
+        border: showGrid ? '1px solid #2a2a2a' : 'none',
         cursor: 'crosshair',
         backgroundColor: '#111',
       }}
@@ -50,7 +57,7 @@ function Cell({
   )
 }
 
-export function MapGrid({ layers, onCellClick }: Props) {
+export function MapGrid({ layers, showGrid, onCellClick, onCellRightClick }: Props) {
   return (
     <div
       style={{
@@ -66,7 +73,9 @@ export function MapGrid({ layers, onCellClick }: Props) {
           <Cell
             key={`${row}-${col}`}
             layerData={[layers[0][row][col], layers[1][row][col], layers[2][row][col]]}
+            showGrid={showGrid}
             onClick={() => onCellClick(row, col)}
+            onRightClick={() => onCellRightClick(row, col)}
           />
         ))
       )}
