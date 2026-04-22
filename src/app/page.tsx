@@ -1,4 +1,4 @@
-import { TilesSet } from '@/components/tiles-set'
+import { TilesetBrowser } from '@/components/tileset-browser'
 
 export default function Home() {
   return (
@@ -7,7 +7,7 @@ export default function Home() {
         <h1>Map</h1>
       </main>
       <aside>
-        <TilesSet />
+        <TilesetBrowser />
       </aside>
     </div>
   )

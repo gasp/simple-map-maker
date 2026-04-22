@@ -4,17 +4,27 @@ import { useState } from 'react'
 
 const TILE_SIZE = 16
 const SCALE = 2
-const COLS = 16
-const ROWS = 15
-const TILESET_SRC = '/Tilesets/TilesetElement.png'
+const OVERLAY_SCALE = 12
 
 type Sprite = { col: number; row: number }
 
+type Props = {
+  src: string
+  cols: number
+  rows: number
+}
+
 function SpriteCell({
   sprite,
+  src,
+  cols,
+  rows,
   onClick,
 }: {
   sprite: Sprite
+  src: string
+  cols: number
+  rows: number
   onClick: () => void
 }) {
   return (
@@ -23,9 +33,9 @@ function SpriteCell({
       style={{
         width: TILE_SIZE * SCALE,
         height: TILE_SIZE * SCALE,
-        backgroundImage: `url(${TILESET_SRC})`,
+        backgroundImage: `url(${src})`,
         backgroundPosition: `-${sprite.col * TILE_SIZE * SCALE}px -${sprite.row * TILE_SIZE * SCALE}px`,
-        backgroundSize: `${COLS * TILE_SIZE * SCALE}px ${ROWS * TILE_SIZE * SCALE}px`,
+        backgroundSize: `${cols * TILE_SIZE * SCALE}px ${rows * TILE_SIZE * SCALE}px`,
         backgroundRepeat: 'no-repeat',
         imageRendering: 'pixelated',
         cursor: 'pointer',
@@ -42,12 +52,12 @@ function SpriteCell({
   )
 }
 
-export function TilesSet() {
+export function TilesSet({ src, cols, rows }: Props) {
   const [selected, setSelected] = useState<Sprite | null>(null)
 
   const sprites: Sprite[] = []
-  for (let row = 0; row < ROWS; row++) {
-    for (let col = 0; col < COLS; col++) {
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
       sprites.push({ col, row })
     }
   }
@@ -57,7 +67,7 @@ export function TilesSet() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${COLS}, ${TILE_SIZE * SCALE}px)`,
+          gridTemplateColumns: `repeat(${cols}, ${TILE_SIZE * SCALE}px)`,
           gap: 0,
           width: 'fit-content',
         }}
@@ -66,6 +76,9 @@ export function TilesSet() {
           <SpriteCell
             key={`${sprite.col}-${sprite.row}`}
             sprite={sprite}
+            src={src}
+            cols={cols}
+            rows={rows}
             onClick={() => setSelected(sprite)}
           />
         ))}
@@ -86,11 +99,11 @@ export function TilesSet() {
         >
           <div
             style={{
-              width: TILE_SIZE * 12,
-              height: TILE_SIZE * 12,
-              backgroundImage: `url(${TILESET_SRC})`,
-              backgroundPosition: `-${selected.col * TILE_SIZE * 12}px -${selected.row * TILE_SIZE * 12}px`,
-              backgroundSize: `${COLS * TILE_SIZE * 12}px ${ROWS * TILE_SIZE * 12}px`,
+              width: TILE_SIZE * OVERLAY_SCALE,
+              height: TILE_SIZE * OVERLAY_SCALE,
+              backgroundImage: `url(${src})`,
+              backgroundPosition: `-${selected.col * TILE_SIZE * OVERLAY_SCALE}px -${selected.row * TILE_SIZE * OVERLAY_SCALE}px`,
+              backgroundSize: `${cols * TILE_SIZE * OVERLAY_SCALE}px ${rows * TILE_SIZE * OVERLAY_SCALE}px`,
               backgroundRepeat: 'no-repeat',
               imageRendering: 'pixelated',
             }}
