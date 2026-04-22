@@ -1,11 +1,15 @@
 import { writeFileSync } from 'node:fs'
 import path from 'node:path'
 
+const FILES = ['map-floor.json', 'map-low.json', 'map-high.json'] as const
+
 export async function POST(request: Request) {
-  const body = await request.json()
-  writeFileSync(
-    path.join(process.cwd(), 'map.json'),
-    JSON.stringify(body, null, 2)
-  )
+  const { layers } = await request.json()
+  for (let i = 0; i < 3; i++) {
+    writeFileSync(
+      path.join(process.cwd(), FILES[i]),
+      JSON.stringify({ cells: layers[i] }, null, 2)
+    )
+  }
   return Response.json({ ok: true })
 }

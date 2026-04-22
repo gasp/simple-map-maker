@@ -6,38 +6,51 @@ const GRID_SIZE = 16
 const CELL_SIZE = 32
 
 type Props = {
-  cells: CellData[][]
+  layers: [CellData[][], CellData[][], CellData[][]]
   onCellClick: (row: number, col: number) => void
 }
 
-function Cell({ data, onClick }: { data: CellData; onClick: () => void }) {
-  const tileStyle = data
-    ? {
-        backgroundImage: `url(${data.tilesetPath})`,
-        backgroundPosition: `-${data.col * CELL_SIZE}px -${data.row * CELL_SIZE}px`,
-        backgroundSize: `${data.tilesetCols * CELL_SIZE}px ${data.tilesetRows * CELL_SIZE}px`,
-        backgroundRepeat: 'no-repeat' as const,
-        imageRendering: 'pixelated' as const,
-      }
-    : {}
-
+function Cell({
+  layerData,
+  onClick,
+}: {
+  layerData: CellData[]
+  onClick: () => void
+}) {
   return (
     <div
       onClick={onClick}
       style={{
+        position: 'relative',
         width: CELL_SIZE,
         height: CELL_SIZE,
         boxSizing: 'border-box',
         border: '1px solid #2a2a2a',
         cursor: 'crosshair',
         backgroundColor: '#111',
-        ...tileStyle,
       }}
-    />
+    >
+      {layerData.map((data, i) =>
+        data ? (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url(${data.tilesetPath})`,
+              backgroundPosition: `-${data.col * CELL_SIZE}px -${data.row * CELL_SIZE}px`,
+              backgroundSize: `${data.tilesetCols * CELL_SIZE}px ${data.tilesetRows * CELL_SIZE}px`,
+              backgroundRepeat: 'no-repeat',
+              imageRendering: 'pixelated',
+            }}
+          />
+        ) : null
+      )}
+    </div>
   )
 }
 
-export function MapGrid({ cells, onCellClick }: Props) {
+export function MapGrid({ layers, onCellClick }: Props) {
   return (
     <div
       style={{
@@ -52,7 +65,7 @@ export function MapGrid({ cells, onCellClick }: Props) {
         Array.from({ length: GRID_SIZE }, (_, col) => (
           <Cell
             key={`${row}-${col}`}
-            data={cells[row][col]}
+            layerData={[layers[0][row][col], layers[1][row][col], layers[2][row][col]]}
             onClick={() => onCellClick(row, col)}
           />
         ))
