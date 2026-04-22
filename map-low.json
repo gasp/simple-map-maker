@@ -489,22 +489,22 @@
       null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 19,
+        "col": 8,
         "row": 1
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 20,
+        "col": 9,
         "row": 1
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 21,
+        "col": 10,
         "row": 1
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 22,
+        "col": 11,
         "row": 1
       },
       null,
@@ -531,12 +531,12 @@
       null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 19,
+        "col": 8,
         "row": 2
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 20,
+        "col": 10,
         "row": 2
       },
       {
@@ -546,7 +546,7 @@
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 22,
+        "col": 11,
         "row": 2
       },
       {
@@ -592,11 +592,7 @@
         "row": 0
       },
       null,
-      {
-        "tilesetPath": "/Tilesets/TilesetFloor.png",
-        "col": 0,
-        "row": 4
-      },
+      null,
       null,
       null,
       null,
@@ -615,7 +611,11 @@
       null,
       null,
       null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetNature.png",
+        "col": 5,
+        "row": 11
+      },
       null,
       null,
       null,
@@ -648,12 +648,20 @@
         "row": 9
       },
       null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 0,
+        "row": 2
+      },
       null,
       null,
       null,
       null,
-      null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 6,
+        "row": 4
+      },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
         "col": 10,
@@ -692,11 +700,19 @@
       },
       null,
       null,
+      {
+        "tilesetPath": "/Tilesets/TilesetFloor.png",
+        "col": 0,
+        "row": 4
+      },
       null,
       null,
       null,
-      null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 1,
+        "row": 0
+      },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
         "col": 8,

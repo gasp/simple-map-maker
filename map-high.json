@@ -239,22 +239,22 @@
       null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 19,
+        "col": 8,
         "row": 0
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 20,
+        "col": 9,
         "row": 0
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 21,
+        "col": 10,
         "row": 0
       },
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 22,
+        "col": 11,
         "row": 0
       },
       null,
@@ -272,7 +272,11 @@
       null,
       null,
       null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 3,
+        "row": 3
+      },
       null,
       null,
       {
@@ -339,7 +343,11 @@
       null,
       null,
       null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 6,
+        "row": 3
+      },
       null,
       null,
       null,
