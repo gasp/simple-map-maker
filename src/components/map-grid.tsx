@@ -7,19 +7,25 @@ const CELL_SIZE = 32
 
 type Props = {
   layers: [CellData[][], CellData[][], CellData[][]]
+  collision: boolean[][]
   showGrid: boolean
+  showCollision: boolean
   onCellClick: (row: number, col: number) => void
   onCellRightClick: (row: number, col: number) => void
 }
 
 function Cell({
   layerData,
+  isWall,
   showGrid,
+  showCollision,
   onClick,
   onRightClick,
 }: {
   layerData: CellData[]
+  isWall: boolean
   showGrid: boolean
+  showCollision: boolean
   onClick: () => void
   onRightClick: () => void
 }) {
@@ -53,11 +59,21 @@ function Cell({
           />
         ) : null
       )}
+      {showCollision && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundColor: isWall ? 'rgba(220, 50, 50, 0.55)' : 'rgba(60, 200, 60, 0.15)',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
     </div>
   )
 }
 
-export function MapGrid({ layers, showGrid, onCellClick, onCellRightClick }: Props) {
+export function MapGrid({ layers, collision, showGrid, showCollision, onCellClick, onCellRightClick }: Props) {
   return (
     <div
       style={{
@@ -73,7 +89,9 @@ export function MapGrid({ layers, showGrid, onCellClick, onCellRightClick }: Pro
           <Cell
             key={`${row}-${col}`}
             layerData={[layers[0][row][col], layers[1][row][col], layers[2][row][col]]}
+            isWall={collision[row][col]}
             showGrid={showGrid}
+            showCollision={showCollision}
             onClick={() => onCellClick(row, col)}
             onRightClick={() => onCellRightClick(row, col)}
           />

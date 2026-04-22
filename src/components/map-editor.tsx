@@ -18,11 +18,17 @@ function emptyLayers(): Layers {
   return [emptyGrid(), emptyGrid(), emptyGrid()]
 }
 
+function emptyCollision(): boolean[][] {
+  return Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(false))
+}
+
 export function MapEditor() {
   const [selectedTile, setSelectedTile] = useState<TileRef | null>(null)
   const [layers, setLayers] = useState<Layers>(emptyLayers)
   const [activeLayer, setActiveLayer] = useState<LayerIndex>(0)
+  const [collision, setCollision] = useState<boolean[][]>(emptyCollision)
   const [showGrid, setShowGrid] = useState(true)
+  const [showCollision, setShowCollision] = useState(false)
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -47,10 +53,19 @@ export function MapEditor() {
         )
       ) as Layers
       setLayers(loaded)
+      if (mapData.collision) setCollision(mapData.collision)
     })
   }, [])
 
   function handleCellClick(row: number, col: number) {
+    if (showCollision) {
+      setCollision((prev) => {
+        const next = prev.map((r) => [...r])
+        next[row][col] = !next[row][col]
+        return next
+      })
+      return
+    }
     if (!selectedTile) return
     setLayers((prev) => {
       const next: Layers = [
@@ -64,6 +79,7 @@ export function MapEditor() {
   }
 
   function handleCellRightClick(row: number, col: number) {
+    if (showCollision) return
     setLayers((prev) => {
       const next: Layers = [
         prev[0].map((r) => [...r]),
@@ -87,7 +103,7 @@ export function MapEditor() {
     await fetch('/api/map', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ layers: payload }),
+      body: JSON.stringify({ layers: payload, collision }),
     })
     setSaving(false)
   }
@@ -127,22 +143,22 @@ export function MapEditor() {
 
         <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
           <div style={{ display: 'flex' }}>
-          {LAYER_NAMES.map((name, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveLayer(i as LayerIndex)}
-              style={{
-                padding: '4px 14px',
-                cursor: 'pointer',
-                color: 'inherit',
-                backgroundColor: activeLayer === i ? '#2a4a6a' : 'transparent',
-                border: '1px solid #444',
-                borderRight: i < 2 ? 'none' : '1px solid #444',
-              }}
-            >
-              {name}
-            </button>
-          ))}
+            {LAYER_NAMES.map((name, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveLayer(i as LayerIndex)}
+                style={{
+                  padding: '4px 14px',
+                  cursor: 'pointer',
+                  color: 'inherit',
+                  backgroundColor: activeLayer === i ? '#2a4a6a' : 'transparent',
+                  border: '1px solid #444',
+                  borderRight: i < 2 ? 'none' : '1px solid #444',
+                }}
+              >
+                {name}
+              </button>
+            ))}
           </div>
           <button
             onClick={() => setShowGrid((v) => !v)}
@@ -156,9 +172,28 @@ export function MapEditor() {
           >
             Grid
           </button>
+          <button
+            onClick={() => setShowCollision((v) => !v)}
+            style={{
+              padding: '4px 10px',
+              cursor: 'pointer',
+              color: 'inherit',
+              backgroundColor: showCollision ? '#6a2a2a' : 'transparent',
+              border: '1px solid #444',
+            }}
+          >
+            Collision
+          </button>
         </div>
 
-        <MapGrid layers={layers} showGrid={showGrid} onCellClick={handleCellClick} onCellRightClick={handleCellRightClick} />
+        <MapGrid
+          layers={layers}
+          collision={collision}
+          showGrid={showGrid}
+          showCollision={showCollision}
+          onCellClick={handleCellClick}
+          onCellRightClick={handleCellRightClick}
+        />
       </main>
       <aside style={{ borderLeft: '1px solid #333', overflow: 'auto', flexShrink: 0 }}>
         <TilesetBrowser onTileSelect={setSelectedTile} />
