@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { TilesSet } from './tiles-set'
+import type { TileRef } from '@/types/map'
 
 type Tileset = {
   name: string
@@ -10,28 +11,52 @@ type Tileset = {
   height: number
 }
 
+type Sprite = { col: number; row: number }
+
 const TILE_SIZE = 16
 
-export function TilesetBrowser() {
+type Props = {
+  onTileSelect?: (tile: TileRef) => void
+}
+
+export function TilesetBrowser({ onTileSelect }: Props) {
   const [tilesets, setTilesets] = useState<Tileset[]>([])
-  const [selected, setSelected] = useState<Tileset | null>(null)
+  const [activeTileset, setActiveTileset] = useState<Tileset | null>(null)
+  const [selectedSprite, setSelectedSprite] = useState<Sprite | null>(null)
 
   useEffect(() => {
     fetch('/api/tilesets')
       .then((r) => r.json())
       .then((data: Tileset[]) => {
         setTilesets(data)
-        setSelected(data[0] ?? null)
+        setActiveTileset(data[0] ?? null)
       })
   }, [])
 
+  function handleSelect(sprite: Sprite) {
+    setSelectedSprite(sprite)
+    if (!activeTileset) return
+    const cols = Math.floor(activeTileset.width / TILE_SIZE)
+    const rows = Math.floor(activeTileset.height / TILE_SIZE)
+    onTileSelect?.({
+      tilesetPath: activeTileset.path,
+      tilesetCols: cols,
+      tilesetRows: rows,
+      col: sprite.col,
+      row: sprite.row,
+    })
+  }
+
+  function handleTilesetChange(path: string) {
+    setActiveTileset(tilesets.find((t) => t.path === path) ?? null)
+    setSelectedSprite(null)
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px' }}>
       <select
-        value={selected?.path ?? ''}
-        onChange={(e) =>
-          setSelected(tilesets.find((t) => t.path === e.target.value) ?? null)
-        }
+        value={activeTileset?.path ?? ''}
+        onChange={(e) => handleTilesetChange(e.target.value)}
         style={{ padding: '4px' }}
       >
         {tilesets.map((t) => (
@@ -40,11 +65,13 @@ export function TilesetBrowser() {
           </option>
         ))}
       </select>
-      {selected && (
+      {activeTileset && (
         <TilesSet
-          src={selected.path}
-          cols={Math.floor(selected.width / TILE_SIZE)}
-          rows={Math.floor(selected.height / TILE_SIZE)}
+          src={activeTileset.path}
+          cols={Math.floor(activeTileset.width / TILE_SIZE)}
+          rows={Math.floor(activeTileset.height / TILE_SIZE)}
+          selectedSprite={selectedSprite}
+          onSelect={handleSelect}
         />
       )}
     </div>
