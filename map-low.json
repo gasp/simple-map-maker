@@ -30,26 +30,10 @@
         "col": 6,
         "row": 2
       },
-      {
-        "tilesetPath": "/Tilesets/TilesetNature.png",
-        "col": 2,
-        "row": 9
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetNature.png",
-        "col": 3,
-        "row": 9
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 0
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 0
-      },
+      null,
+      null,
+      null,
+      null,
       {
         "tilesetPath": "/Tilesets/TilesetNature.png",
         "col": 4,
@@ -105,21 +89,9 @@
         "row": 3
       },
       null,
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 11,
-        "row": 2
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 14,
-        "row": 2
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 14,
-        "row": 2
-      },
+      null,
+      null,
+      null,
       {
         "tilesetPath": "/Tilesets/TilesetNature.png",
         "col": 4,
@@ -174,12 +146,12 @@
       },
       {
         "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 14,
+        "col": 15,
         "row": 3
       },
       {
         "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 15,
+        "col": 14,
         "row": 3
       },
       {
@@ -224,21 +196,9 @@
         "col": 2,
         "row": 1
       },
-      {
-        "tilesetPath": "/Tilesets/TilesetHouse.png",
-        "col": 3,
-        "row": 1
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 3
-      },
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 3,
-        "row": 3
-      },
+      null,
+      null,
+      null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
         "col": 12,
@@ -373,11 +333,7 @@
       }
     ],
     [
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 0
-      },
+      null,
       null,
       null,
       null,
@@ -396,18 +352,10 @@
         "row": 2
       },
       null,
-      {
-        "tilesetPath": "/Tilesets/TilesetNature.png",
-        "col": 0,
-        "row": 0
-      }
+      null
     ],
     [
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 0
-      },
+      null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
         "col": 8,
@@ -446,18 +394,10 @@
       null,
       null,
       null,
-      {
-        "tilesetPath": "/Tilesets/TilesetNature.png",
-        "col": 0,
-        "row": 1
-      }
+      null
     ],
     [
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 0
-      },
+      null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
         "col": 8,
@@ -515,11 +455,7 @@
       }
     ],
     [
-      {
-        "tilesetPath": "/Tilesets/TilesetElement.png",
-        "col": 2,
-        "row": 0
-      },
+      null,
       null,
       null,
       null,

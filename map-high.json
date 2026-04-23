@@ -41,9 +41,21 @@
         "col": 7,
         "row": 3
       },
-      null,
-      null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 11,
+        "row": 2
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 14,
+        "row": 2
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 14,
+        "row": 2
+      },
       {
         "tilesetPath": "/Tilesets/TilesetElement.png",
         "col": 13,
@@ -120,9 +132,21 @@
         "col": 7,
         "row": 4
       },
-      null,
-      null,
-      null,
+      {
+        "tilesetPath": "/Tilesets/TilesetHouse.png",
+        "col": 11,
+        "row": 1
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 2,
+        "row": 3
+      },
+      {
+        "tilesetPath": "/Tilesets/TilesetElement.png",
+        "col": 3,
+        "row": 3
+      },
       null,
       {
         "tilesetPath": "/Tilesets/TilesetHouse.png",
