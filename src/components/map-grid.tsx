@@ -1,6 +1,6 @@
 'use client'
 
-import type { CellData } from '@/types/map'
+import type { CellData, LayerIndex } from '@/types/map'
 
 const GRID_SIZE = 16
 const CELL_SIZE = 32
@@ -10,6 +10,7 @@ type Props = {
   collision: boolean[][]
   showGrid: boolean
   showCollision: boolean
+  onlyLayer: LayerIndex | null
   onCellClick: (row: number, col: number) => void
   onCellRightClick: (row: number, col: number) => void
 }
@@ -73,7 +74,7 @@ function Cell({
   )
 }
 
-export function MapGrid({ layers, collision, showGrid, showCollision, onCellClick, onCellRightClick }: Props) {
+export function MapGrid({ layers, collision, showGrid, showCollision, onlyLayer, onCellClick, onCellRightClick }: Props) {
   return (
     <div
       style={{
@@ -88,7 +89,11 @@ export function MapGrid({ layers, collision, showGrid, showCollision, onCellClic
         Array.from({ length: GRID_SIZE }, (_, col) => (
           <Cell
             key={`${row}-${col}`}
-            layerData={[layers[0][row][col], layers[1][row][col], layers[2][row][col]]}
+            layerData={[
+              onlyLayer === null || onlyLayer === 0 ? layers[0][row][col] : null,
+              onlyLayer === null || onlyLayer === 1 ? layers[1][row][col] : null,
+              onlyLayer === null || onlyLayer === 2 ? layers[2][row][col] : null,
+            ]}
             isWall={collision[row][col]}
             showGrid={showGrid}
             showCollision={showCollision}

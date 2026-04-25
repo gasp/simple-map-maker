@@ -29,6 +29,7 @@ export function MapEditor() {
   const [collision, setCollision] = useState<boolean[][]>(emptyCollision)
   const [showGrid, setShowGrid] = useState(true)
   const [showCollision, setShowCollision] = useState(false)
+  const [onlyLayer, setOnlyLayer] = useState(false)
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -161,6 +162,18 @@ export function MapEditor() {
             ))}
           </div>
           <button
+            onClick={() => setOnlyLayer((v) => !v)}
+            style={{
+              padding: '4px 10px',
+              cursor: 'pointer',
+              color: 'inherit',
+              backgroundColor: onlyLayer ? '#2a4a6a' : 'transparent',
+              border: '1px solid #444',
+            }}
+          >
+            Only
+          </button>
+          <button
             onClick={() => setShowGrid((v) => !v)}
             style={{
               padding: '4px 10px',
@@ -191,6 +204,7 @@ export function MapEditor() {
           collision={collision}
           showGrid={showGrid}
           showCollision={showCollision}
+          onlyLayer={onlyLayer ? activeLayer : null}
           onCellClick={handleCellClick}
           onCellRightClick={handleCellRightClick}
         />
