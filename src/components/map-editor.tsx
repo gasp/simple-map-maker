@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { TilesetBrowser } from './tileset-browser'
 import { MapGrid } from './map-grid'
+import { MapPicker } from './map-picker'
 import type { TileRef, CellData, LayerIndex } from '@/types/map'
 import { LAYER_NAMES } from '@/types/map'
 
@@ -31,10 +32,13 @@ export function MapEditor() {
   const [showCollision, setShowCollision] = useState(false)
   const [onlyLayer, setOnlyLayer] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [currentMap, setCurrentMap] = useState<string | null>(null)
+  const [showPicker, setShowPicker] = useState(false)
 
   useEffect(() => {
+    if (!currentMap) return
     Promise.all([
-      fetch('/api/map').then((r) => r.json()),
+      fetch(`/api/map?map=${encodeURIComponent(currentMap)}`).then((r) => r.json()),
       fetch('/api/tilesets').then((r) => r.json()),
     ]).then(([mapData, tilesets]) => {
       const sizeMap = new Map<string, { cols: number; rows: number }>(
@@ -56,7 +60,14 @@ export function MapEditor() {
       setLayers(loaded)
       if (mapData.collision) setCollision(mapData.collision)
     })
-  }, [])
+  }, [currentMap])
+
+  function handleSelectMap(name: string) {
+    setCurrentMap(name)
+    setShowPicker(false)
+    setLayers(emptyLayers())
+    setCollision(emptyCollision())
+  }
 
   function handleCellClick(row: number, col: number) {
     if (showCollision) {
@@ -93,6 +104,7 @@ export function MapEditor() {
   }
 
   async function handleSave() {
+    if (!currentMap) return
     setSaving(true)
     const payload = layers.map((grid) =>
       grid.map((row) =>
@@ -101,7 +113,7 @@ export function MapEditor() {
         )
       )
     )
-    await fetch('/api/map', {
+    await fetch(`/api/map?map=${encodeURIComponent(currentMap)}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ layers: payload, collision }),
@@ -120,7 +132,22 @@ export function MapEditor() {
             marginBottom: '12px',
           }}
         >
-          <h1 style={{ margin: 0 }}>Map</h1>
+          <div style={{ position: 'relative' }}>
+            <h1
+              onClick={() => setShowPicker((v) => !v)}
+              style={{ margin: 0, cursor: 'pointer', userSelect: 'none' }}
+              title="Click to switch map"
+            >
+              {currentMap ?? 'Map'} ▾
+            </h1>
+            {showPicker && (
+              <MapPicker
+                currentMap={currentMap}
+                onSelect={handleSelectMap}
+                onClose={() => setShowPicker(false)}
+              />
+            )}
+          </div>
           {selectedTile && (
             <div
               title={`${selectedTile.tilesetPath} (${selectedTile.col}, ${selectedTile.row})`}
@@ -137,7 +164,7 @@ export function MapEditor() {
               }}
             />
           )}
-          <button onClick={handleSave} disabled={saving}>
+          <button onClick={handleSave} disabled={saving || !currentMap}>
             {saving ? 'Saving…' : 'Save'}
           </button>
         </div>
